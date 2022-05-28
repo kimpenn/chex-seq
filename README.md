@@ -7,7 +7,7 @@ This is the computational pipeline for converting the reads from next-generation
 
 This pipeline takes in the [PennSCAP-T NGS pipeline](https://github.com/kimpenn/ngs-pipeline) preprocessed data, evaluates the reads based on the barcode/primer quality as well as the mapping quality, then tracks the start site of a primer-extension event (i.e the primer annealing site) and removes multiple start sites in a small genomic range (20bp by default) (as biochemically un likely). Next, it summarizes the primer annealing sites (as single spots) as well as the primer extending regions (as genomic intervals) in the BED format. Finally, it searches and removes various technical artifacts, including the ENCODE low-mappability blacklists, the cross-species contaminants, the low-mapping-quality reads. 
 
-For complete manual please refer to the [Wiki Page](doc/manual.md).
+For complete manual please refer to the [Wiki Page](doc/wiki.md).
 
 ## Dependencies
 * [PennSCAP-T pipeline](https://github.com/safisher/ngs) (>=2.3)
