@@ -1,0 +1,7 @@
+GroupName,ExptID,SampleID,SeqType,Species,EndType,Length,Stranded,Spikein,Contan,Barcoded,Barcode,ProbesDegen,2p_fwID_search,Protocol,ProbeID,2p_fwID_actual,pc_fwID,pcnoc_fwID,1p_fwID,#PolyC,CellType,HasProbe,HasLaser405,HasLaser633,CellNum,HasLPA,IsNegCtrl,Harvest,DrugGroup,HasTPA,TPADose,TPATime,HasMungBean
+CV2bK562Batch8WithDenatureGravPooled_2pPBC1_15NT,574,scCLTdegenNuc333,CHEXSeq,human,PE,75,FALSE,none,Default,TRUE,ATCACG,15NT,505,C_V2b,502,505b,302,303,303,13,K562,Y,Y,Y,9,N,N,Culture,none,N,none,none,N
+CV2bK562Batch8WithDenatureGravSingle2pPBC1_15NT,574,scCLTdegenNuc334,CHEXSeq,human,PE,75,FALSE,none,Default,TRUE,ATCACG,15NT,505,C_V2b,502,505b,302,303,303,13,K562,Y,Y,Y,1,N,N,Culture,none,N,none,none,N
+CV2bK562Batch8WithDenatureGravSingle2pPBC1_15NT,574,scCLTdegenNuc335,CHEXSeq,human,PE,75,FALSE,none,Default,TRUE,ATCACG,15NT,505,C_V2b,502,505b,302,303,303,13,K562,Y,Y,Y,1,N,N,Culture,none,N,none,none,N
+CV2bMouseBrainSliceMap2StainSingle2pPBC1_15NT,589,scCLTdegenNuc458,CHEXSeq,mouse,PE,75,FALSE,none,Default,TRUE,ATCACG,15NT,505,C_V2b,502,505b,302,303,303,13,Neuron,Y,Y,Y,1,N,N,Slice,none,N,none,none,N
+CV2bMouseBrainSliceMap2StainSingle2pPBC1_15NT,589,scCLTdegenNuc459,CHEXSeq,mouse,PE,75,FALSE,none,Default,TRUE,ATCACG,15NT,505,C_V2b,502,505b,302,303,303,13,Neuron,Y,Y,Y,1,N,N,Slice,none,N,none,none,N
+CV2bMouseBrainSliceMap2StainSingle2pPBC1_15NT,589,scCLTdegenNuc460,CHEXSeq,mouse,PE,75,FALSE,none,Default,TRUE,ATCACG,15NT,505,C_V2b,502,505b,302,303,303,13,Neuron,Y,Y,Y,1,N,N,Slice,none,N,none,none,N
