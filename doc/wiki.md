@@ -331,6 +331,7 @@ Note, we could have used the sum of the mapped length of two mates as the "raw m
 We observed nonnegligible amount of human reads in certain mouse samples (Figure 6, for example the latter samples) and we hence appended our pipeline with the cross-species contaminants filtering. In human samples, we also detected non-human reads, though to a lesser extent. Both species showed low to moderate bacteria/mycoplasma contamination as well. 
 
 ![MouseAstroContam](img/mouseastrocontam.png) 
+
 Figure 6. Venn diagram showing different levels of human contamination in mouse astrocyte culture samples. Red: number of AB reads aligned better to human; green: number of AB reads aligned better to mouse; `+`: samples with the CHEX-seq probe; `-`: samples without the CHEX-seq probe; `s`: single-cell samples; `p`: bulk samples pooling multiple cells. 
 
 Table 3. The policy for cross-species contaminants detection
