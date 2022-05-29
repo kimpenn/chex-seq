@@ -91,10 +91,16 @@ Basically, every read pair has the 5' end (`2p`) and 3' end (`pC`) primer search
 * R2_2p_rc
 * R2_pC_rc
 
-Here, we defined the barcode sequence as `2p` and the polyC sequence as `pC`, as shown in Figure 1. 
+![schema](img/schema.png) 
 
-![schema](img/schema.png) Figure 1. The definition of the `2p` and `pC` barcode/primer
-    The numbers following the tilde indicates whether the primer is found (0 if not) and if found, how many bases are found. In the above example, we can see that the `2p` primer has 21 bases (from the 3' end) found and trimmed from R1, and the `pC` primer has 23 bases (from the 3' end) found and trimmed from R2. Besides, the reverse strand of `pC` is also detected at the R1's 3 end, hence the bases all the way down where it was found is also trimmed; the total trimmed length is 51. 
+Figure 1. The definition of the `2p` and `pC` barcode/primer
+
+Here, we define the barcode sequence as `2p` and the polyC sequence as `pC`, as shown in Figure 1. The numbers following the tilde indicates whether the primer is found (0 if not) and if found, how many bases are found. 
+
+```
+R1_2p_fw~21,R1_pC_fw~0,R1_2p_rc~0,R1_pC_rc~51,R2_2p_fw~0,R2_pC_fw~23,R2_2p_rc~0,R2_pC_rc~0
+```
+In the above example, we can see that the `2p` primer has 21 bases (from the 3' end) found and trimmed from R1, and the `pC` primer has 23 bases (from the 3' end) found and trimmed from R2. Besides, the reverse strand of `pC` is also detected at the R1's 3 end, hence the bases all the way down where it was found is also trimmed; the total trimmed length is 51. 
 
 Schematically, below shows the location of the primers in this read pair. 
 
@@ -125,10 +131,14 @@ Besides the read name annotation, CHEXTRIM also produces LOG files that tracks t
 Each file corresponds to one step of CHEXTRIM iterative search procedure and the definition of which can be depicted as the schematic below:
 
 a)
-![paired-end](img/chextrim_pe.png) Figure 2-1. CHEXTRIM procedure and output filename definition for paired-end sequencing
+![paired-end](img/chextrim_pe.png) 
+
+Figure 2-1. CHEXTRIM procedure and output filename definition for paired-end sequencing
 
 b)
-![single-end](img/chextrim_se.png) Figure 2-2. CHEXTRIM procedure and output filename definition for single-end sequencing
+![single-end](img/chextrim_se.png) 
+
+Figure 2-2. CHEXTRIM procedure and output filename definition for single-end sequencing
 
 As part of the [PennSCAP-T NGS pipeline](https://github.com/kimpenn/ngs-pipeline), CHEXTRIM is developed by Dr. Erik Nordgren. It is based on the software package `cutadapt` (Martin 2011) and the source code is available at https://github.com/kimpenn/ngs-pipeline/blob/master/ngs_CHEXTRIM.sh.
 
@@ -198,12 +208,16 @@ This comprises of two major steps. The first step is carried out by `ParseChexTr
 The summarized CHEXTRIM statistics serves as diagnostic tools for users to quickly visualize the primers' location and orientation in order to assess the barcode/primer quality. For example, 
 
 Where is the `2p` or `pC` primer found with respective to the 5' end?
-![fw](img/chextrimstats_A.png) Figure 3-1. Distribution of the forward-strand primers at the 5' end of read pairs
+![fw](img/chextrimstats_A.png) 
+
+Figure 3-1. Distribution of the forward-strand primers at the 5' end of read pairs
 
 In Figure 3-1, `A` strands for the location of the `2p` primer in R1 and `B` for the location of the `pC` primer in R2. It's easy to see that primer `505` is mostly found at 20bp while `518s` is mostly found at 30bp. Both match our expectation, because `505` is designed to be 20bp and `518` is designed to be 30bp. 
 
 Where is the reverse complement of `2p` or `pC` primer found with respective to the 3' end?
-![rc](img/chextrimstats_AAAA.png) Figure 3-2. Distribution of the reverse-strand primer `pC` at the 5' end of R1
+![rc](img/chextrimstats_AAAA.png) 
+
+Figure 3-2. Distribution of the reverse-strand primer `pC` at the 5' end of R1
 
 In Figure 3-2, `AAAA` strands for the location of the reverse complement of `pC` with respect to the 3' end in R1. We can easily spot that 
 
@@ -253,7 +267,9 @@ For a complete list of the parameter settings, please refer to the program [Filt
 
 
 ## 3. CHEX-seq duplicate priming removal
-![AdjRemoval](img/removeadjreads.png) Figure 4. Illustration of the duplicate priming events and the consensus primer-extension stop site. 
+![AdjRemoval](img/removeadjreads.png)
+
+Figure 4. Illustration of the duplicate priming events and the consensus primer-extension stop site. 
 
 As illustrated in Figure 4, CHEX-seq probe annealing is supposed to be subject to the biochemical constraint such that the maximal probe annealing times should be limited inside a unit interval. In other words, the 5' end of the `2p` reads should be spaced out by a minimal gap. Note, this constraint is not presumed to apply to the 5' end of the `pC` reads. This is because the primer extension is supposed to be bound by the single-stranded chromatin size. For instance, when the polymerase hits the single-stranded chromatin boundary where, say, a transcription bubble closes, the `pC` reads should share a common 5' end (green arrows in Figure 4). Therefore, we imposed a threshold of one priming event per 20bp (by default, can be tweaked by the argument `--mindist`) per copy of genome, and given a diploid genome (human, mouse, etc.) there won't be more than 2 priming events per 20bp per single cell. 
 
@@ -268,6 +284,7 @@ Usage:
 ```
 RemoveAdjReads.pl --inFile data/E.chex/analyzed/Sample_scCLTdegenNuc333/star/Sample_scCLTdegenNuc333.star.primaryNoDup.ABeither.bam --outFile data/E.chex/analyzed/Sample_scCLTdegenNuc333/star/Sample_scCLTdegenNuc333.star.primaryNoDup.ABeither.NoAdj.bam --outDupFile data/E.chex/analyzed/Sample_scCLTdegenNuc333/star/Sample_scCLTdegenNuc333.star.primaryNoDup.ABeither.AdjDup.bam --outStatsFile data/E.chex/analyzed/Sample_scCLTdegenNuc333/star/Sample_scCLTdegenNuc333.star.primaryNoDup.ABeither.AdjCnts.bed --ncells 50 [--priority 'A1,A2,B1,B2,C1,C2'] [--endType PE] [--scheme AS] [--penalty 2] [--mindist 20] [--ignoreStrand] [--addSoftClipped] [--focusTag 'A1:F,A2:F,B1:F,B2:F,C1:R,C2:R'] [--doesOutNoFocus]
 ```
+
 Notes:
 
 1. The deduplicated BAM is saved to `--outFile`;
@@ -291,7 +308,7 @@ Since this program has to process reads in different barcode/primer quality clas
 To fulfill capability (2), we designed the argument `--outType`. It provides four options: (1) `5End`, (2) `Read`, (3) `Frag`, (4) `ReadAndFrag`. The definition of each option is shown as the schematic below. 
 
 Table 2. Schematic showing how the strandedness of priming spots/intervals is decided given the combination of the parameters `--outType` and `--doesOutNoFocus`.
-![BamToBed](img/bamtobed.png)   
+![BamToBed](img/bamtobed.png)
 
 1. `5End`: the priming start site (of the `2p` read) or the primer-extension stop site (of the `pC` read);
 2. `Read`: individual mates (if both are mapped) from the respective 5' end to the 3' end;
@@ -322,7 +339,9 @@ The ENCODE Project has studied and identified genomic regions showing anomalous 
 
 As shown in Figure 5, we noticed a significant portion of the aligned reads that were not well aligned. For example, in the worst sample, only a median of 20bp in `2p` reads was mapped, while a even shorter length (~18bp) in `pC` was mapped. This indicates that only ~38bp of both mates were mapped, given no overlap between the two mates. Furthermore, the median of the per-base mismatch rate is ~5% in the worst sample, while over 25% reads had a mismatch rate > 10%. We hence decided to filter out reads with too few bases mapped or with too high mismatch rate. 
 
-![STARmapqual](img/starmapq.png) Figure 5. STAR mapping quality distribution of the mouse neuron tissue section samples. left, mapped length distribution of the `2p` and `pC` mates; right, per-base mismatch rate distribution
+![STARmapqual](img/starmapq.png)
+
+Figure 5. STAR mapping quality distribution of the mouse neuron tissue section samples. left, mapped length distribution of the `2p` and `pC` mates; right, per-base mismatch rate distribution
 
 Note, we could have used the sum of the mapped length of two mates as the "raw mapped length". However, as Dr. Kevin Bullaghey pointed out that, when two mates overlap, the independent information content will decrease. We thus would prefer the read pairs with less overlap to those with more overlap, provided the same raw mapped length. To this end, we defined the "nonoverlap mapped length", namely, the sum of the mapped lengths of two mates minus the length of the overlapping insert (if any). By default, reads whose nonoverlap mapped length < 30bp or per-base mismatch rate > 0.10 were filtered. 
 
