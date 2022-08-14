@@ -4,7 +4,7 @@ source src/lib/CHEX.bash
 parallel --progress -j 1 --pipe -N1 launcher_parallel.sh - 12 < data/E.chex/info/config.csv
 
 ## 2. Run CHEX-seq pipeline per 12 samples in paralell
-sed 1d data/SampleInfo.csv | parallel --progress --colsep ',' -j 12 "doNewPipe --baseDir Data --exptDir E.chex --exptID {2} --sampleID {3} --endType {6} --primerIdx2p {14} --primerIdxpC {18} --PrimerLengthMapFile Data/20190801/ChexPrimerTable.conf --species {5} --ncells {26} --mergeLanes --ncores 5 --debug info --verbose"
+sed 1d data/SampleInfo.csv | parallel --progress --colsep ',' -j 12 "doNewPipe --baseDir Data --exptDir E.chex --exptID {2} --sampleID {3} --endType {6} --primerIdx2p {14} --primerIdxpC {18} --PrimerLengthMapFile data/ChexPrimerTable.conf --species {5} --ncells {26} --mergeLanes --ncores 5 --debug info --verbose"
 
 ## 3.1 Gather all samples' stats regardless of barcode/primer quality
 summarizeBamFlagStats --fileBase star.primaryNoDup --alignedDir star --outFile results/ReadQualStats/overall.tsv --sampleIDs $(sed '1d' data/SampleInfo.csv | cut -d "," -f3 | tr "\n" " ")
