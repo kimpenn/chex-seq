@@ -1,7 +1,7 @@
 # CHEX-seq: CHromatin EXposed Sequencing for Single-Stranded Open-Chromatin Analysis
 
 ## Overview
-Photoactivatable primer based Transcriptome In Vivo Analysis (TIVA) has shown successful application in profiling the transcriptome in live single cells (Lovatt *et al.* 2014). As one of its successors, CHEX-seq employs 3’ blocked, light-activatable probes which, upon annealing to the single-stranded DNA, is laser activated in selected cells (fixed or primary culture) at a specified foci, then serves as a primer for *in situ* copying of the single-stranded DNA into amplicons that can be finally sequenced. In this way, CHEX-seq enables a genome-wide map of the single-stranded open-chromatin landscape preserving the local tissue context.
+Photoactivatable primer based Transcriptome In Vivo Analysis (TIVA) has shown successful application in profiling the transcriptome in live single cells [1]. As one of its successors, CHEX-seq employs 3' blocked, light-activatable probes which, upon annealing to the single-stranded DNA, is laser activated in selected cells (fixed or primary culture) at a specified foci, then serves as a primer for *in situ* copying of the single-stranded DNA into amplicons that can be finally sequenced. In this way, CHEX-seq enables a genome-wide map of the single-stranded open-chromatin landscape preserving the local tissue context.
 
 This is the computational pipeline for converting the reads from next-generation sequencing to single-stranded chromatin sites (in BED format) as well as the gene-wise count matrix in different subgenic regions. 
 
@@ -48,16 +48,16 @@ source("src/5.features.R")
 source("src/6.cntmatrix.R")
 ```
 
-## Citation
-* Youtao Lu, Jaehee Lee, Jinchun Wang, Jifen Li, Stephen A. Fisher, C. Erik Nordgren, Kevin Bullaghey, Jean G. Rosario, Stewart A. Anderson, Alexandra V. Ulyanova, Steven Brem, H. Isaac Chen, John A. Wolf, M. Sean Grady, Mimi Healy, Junhyong Kim and James Eberwine<sup>*</sup>, “Light-Assisted Nuclear and Mitochondrial Single Stranded DNA Open-Chromatin Analysis in Single Spatially-Localized Neuronal Cells.” BioRxiv, 2019, 780387. https://doi.org/10.1101/780387.
-
 ## Copyright
-    Copyright (c) 2017-2022, Youtao Lu and Junhyong Kim, Department of Biology, University of Pennsylvania
-    Copyright (c) 2017-2022, James Eberwine, Perelman School of Medicine, University of Pennsylvania
-    All Rights Reserved.
+```
+Copyright (c) 2017-2023, Youtao Lu and Junhyong Kim, Department of Biology, University of Pennsylvania
+Copyright (c) 2017-2023, James Eberwine, Perelman School of Medicine, University of Pennsylvania
+All Rights Reserved.
+```
 
 ## License
 [MPL-2](https://www.mozilla.org/en-US/MPL/2.0/)
 
 ## References
-1. Lovatt, Ditte, Brittani K. Ruble, Jaehee Lee, Hannah Dueck, Tae Kyung Kim, Stephen Fisher, Chantal Francis, et al. “Transcriptome in Vivo Analysis (TIVA) of Spatially Defined Single Cells in Live Tissue.” Nature Methods 11, no. 2 (February 2014): 190–96. https://doi.org/10.1038/nmeth.2804.
+1. Ditte Lovatt, Brittani K Ruble, Jaehee Lee, Hannah Dueck, Tae Kyung Kim, Stephen Fisher, Chantal Francis, Jennifer M Spaethling, John A Wolf, M Sean Grady, Alexandra V Ulyanova, Sean B Yeldell, Julianne C Griepenburg, Peter T Buckley, Junhyong Kim, Jai-Yoon Sul, Ivan J Dmochowski and James Eberwine. "Transcriptome in Vivo Analysis (TIVA) of Spatially Defined Single Cells in Live Tissue." ([Nature Methods 11, no. 2 (February 2014): 190-96] (https://doi.org/10.1038/nmeth.2804))
+2. Youtao Lu, Jaehee Lee, Jifen Li, Srini Rao Allu, Jinhui Wang, Hyun-Bum Kim, Kevin L. Bullaghey, Stephen A. Fisher, C. Erik Nordgren, Jean G. Rosario, Stewart A. Anderson, Alexandra V. Ulyanova, Steven Brem, H. Isaac Chen, John A. Wolf, M. Sean Grady, Sergei A. Vinogradov, Junhyong Kim and James Eberwine. "CHEX-seq Detects Single-Cell Single-Strand DNA With Catalytical Capacity." (under review)
