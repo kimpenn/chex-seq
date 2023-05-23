@@ -50,8 +50,9 @@ source("src/6.cntmatrix.R")
 
 ## Copyright
 ```
-Copyright (c) 2017-2023, James Eberwine, Perelman School of Medicine, University of Pennsylvania
-Copyright (c) 2017-2023, Youtao Lu and Junhyong Kim, Department of Biology, University of Pennsylvania
+Copyright (c) 2017-2023, Jaehee Lee, Jifen Li, Jinhui Wang, Hyun-Bum Kim and James Eberwine, Perelman School of Medicine, University of Pennsylvania
+Copyright (c) 2017-2023, Youtao Lu, Kevin L. Bullaghey, Jean G. Rosario, C. Erik Nordgren, Stephen A. Fisher and Junhyong Kim, Department of Biology, University of Pennsylvania
+
 All Rights Reserved.
 ```
 
@@ -59,5 +60,5 @@ All Rights Reserved.
 [MPL-2](https://www.mozilla.org/en-US/MPL/2.0/)
 
 ## References
-1. Ditte Lovatt, Brittani K Ruble, Jaehee Lee, Hannah Dueck, Tae Kyung Kim, Stephen Fisher, Chantal Francis, Jennifer M Spaethling, John A Wolf, M Sean Grady, Alexandra V Ulyanova, Sean B Yeldell, Julianne C Griepenburg, Peter T Buckley, Junhyong Kim, Jai-Yoon Sul, Ivan J Dmochowski and James Eberwine. "Transcriptome in Vivo Analysis (TIVA) of Spatially Defined Single Cells in Live Tissue." ([Nature Methods 11, no. 2 (February 2014): 190-96] (https://doi.org/10.1038/nmeth.2804))
+1. Ditte Lovatt, Brittani K Ruble, Jaehee Lee, Hannah Dueck, Tae Kyung Kim, Stephen Fisher, Chantal Francis, Jennifer M Spaethling, John A Wolf, M Sean Grady, Alexandra V Ulyanova, Sean B Yeldell, Julianne C Griepenburg, Peter T Buckley, Junhyong Kim, Jai-Yoon Sul, Ivan J Dmochowski and James Eberwine. "Transcriptome in Vivo Analysis (TIVA) of Spatially Defined Single Cells in Live Tissue." ([Nature Methods 11, no. 2 (February 2014): 190-96](https://doi.org/10.1038/nmeth.2804))
 2. Youtao Lu, Jaehee Lee, Jifen Li, Srini Rao Allu, Jinhui Wang, Hyun-Bum Kim, Kevin L. Bullaghey, Stephen A. Fisher, C. Erik Nordgren, Jean G. Rosario, Stewart A. Anderson, Alexandra V. Ulyanova, Steven Brem, H. Isaac Chen, John A. Wolf, M. Sean Grady, Sergei A. Vinogradov, Junhyong Kim and James Eberwine. "CHEX-seq Detects Single-Cell Single-Strand DNA With Catalytical Capacity." (under review)
