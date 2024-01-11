@@ -1,5 +1,5 @@
 ## 1. The PennSCAP-T NGS pipeline
-The PennSCAP-T NGS pipeline takes in the Illumina sequencer's flowcell image data, converts them into FASTQ files, performs quality check, trims low-quality bases and potential contaminants (e.g. primers/adapters), aligns reads to the source genome, and finally does read count quantification using hierarchical assignment of uniquely mapped reads to different genomic features (Zhu *et al.* 2016). 
+The [PennSCAP-T NGS pipeline](https://github.com/kimpenn/ngs-pipeline) takes in the Illumina sequencer's flowcell image data, converts them into FASTQ files, performs quality check, trims low-quality bases and potential contaminants (e.g. primers/adapters), aligns reads to the source genome, and finally does read count quantification using hierarchical assignment of uniquely mapped reads to different genomic features [1]. 
 
 The basic data structure consists of the folders:
 
@@ -66,9 +66,9 @@ This step takes in the RMDUP-ed FASTQ file(s), the primer CONFIG file (e.g. data
 The primer CONFIG file has the structure as below:
 
 ```
-505	20	TAGGGAGACGCGTGATCACG
-505b	18	TAGGGAGACGCGTGATCA
-507	20	TAGGGAGACGCGTGAGTTCC
+505     20	TAGGGAGACGCGTGATCACG
+505b    18	TAGGGAGACGCGTGATCA
+507     20	TAGGGAGACGCGTGAGTTCC
 ...
 ```
 
@@ -140,7 +140,7 @@ b)
 
 Figure 2-2. CHEXTRIM procedure and output filename definition for single-end sequencing
 
-As part of the [PennSCAP-T NGS pipeline](https://github.com/kimpenn/ngs-pipeline), CHEXTRIM is developed by Dr. Erik Nordgren. It is based on the software package `cutadapt` (Martin 2011) and the source code is available at https://github.com/kimpenn/ngs-pipeline/blob/master/ngs_CHEXTRIM.sh.
+As part of the [PennSCAP-T NGS pipeline](https://github.com/kimpenn/ngs-pipeline), CHEXTRIM is developed by Dr. Erik Nordgren. It is based on the software package `cutadapt` [2] and the source code is available at https://github.com/kimpenn/ngs-pipeline/blob/master/ngs_CHEXTRIM.sh.
 
 The additional folders corresponding to CHEXTRIM are:
 
@@ -329,11 +329,11 @@ For a complete list of the parameter settings, please refer to the program [BamT
 
 ## 5. CHEX-seq postprocessing: low-quality reads and contaminants removal
 
-In addition to the barcode/primer quality filtering, we also need to reduce the technical artifacts, which should came from three major sources: (1) reads misplaced to wrong locations because of low complexity, (2) low alignment quality reads, (3) contaminant reads, especially those in non-human samples but are better aligned to the human genome. Since human or bacteria borne contaminants (Salter *et al.* 2014) are not uncommon in molecular biology, we would like to pay additional attention and hence added the cross-species contaminants removal. In the following sections we will cover each step in depth. 
+In addition to the barcode/primer quality filtering, we also need to reduce the technical artifacts, which should came from three major sources: (1) reads misplaced to wrong locations because of low complexity, (2) low alignment quality reads, (3) contaminant reads, especially those in non-human samples but are better aligned to the human genome. Since human or bacteria borne contaminants [4] are not uncommon in molecular biology, we would like to pay additional attention and hence added the cross-species contaminants removal. In the following sections we will cover each step in depth. 
 
 ### 5.1 ENCODE low-mappability region filtering
 
-The ENCODE Project has studied and identified genomic regions showing anomalous high reads mapping. These regions tend to "attract" reads because of their low sequence complexity, for example, the centromeres, telomeres, and satellites (Amemiya *et al*, 2019). To remove these artifactual alignments, we downloaded from https://sites.google.com/site/anshulkundaje/projects/blacklists the blacklists for human (hg38) and mouse (mm10).  
+The ENCODE Project has studied and identified genomic regions showing anomalous high reads mapping. These regions tend to "attract" reads because of their low sequence complexity, for example, the centromeres, telomeres, and satellites [3]. To remove these artifactual alignments, we downloaded from https://sites.google.com/site/anshulkundaje/projects/blacklists the blacklists for human (hg38) and mouse (mm10).  
 
 ### 5.2 low-mapping-quality filtering
 
@@ -343,7 +343,7 @@ As shown in Figure 5, we noticed a significant portion of the aligned reads that
 
 Figure 5. STAR mapping quality distribution of the mouse neuron tissue section samples. left, mapped length distribution of the `2p` and `pC` mates; right, per-base mismatch rate distribution
 
-Note, we could have used the sum of the mapped length of two mates as the "raw mapped length". However, as Dr. Kevin Bullaghey pointed out that, when two mates overlap, the independent information content will decrease. We thus would prefer the read pairs with less overlap to those with more overlap, provided the same raw mapped length. To this end, we defined the "nonoverlap mapped length", namely, the sum of the mapped lengths of two mates minus the length of the overlapping insert (if any). By default, reads whose nonoverlap mapped length < 30bp or per-base mismatch rate > 0.10 were filtered. 
+Note, we could have used the sum of the mapped length of two mates as the "raw mapped length". However, as Dr. Kevin Bullaughey pointed out that, when two mates overlap, the independent information content will decrease. We thus would prefer the read pairs with less overlap to those with more overlap, provided the same raw mapped length. To this end, we defined the "nonoverlap mapped length", namely, the sum of the mapped lengths of two mates minus the length of the overlapping insert (if any). By default, reads whose nonoverlap mapped length < 30bp or per-base mismatch rate > 0.10 were filtered. 
 
 ### 5.3 cross-species contaminants filtering
 
@@ -358,7 +358,7 @@ Sample | Target | Foreign genomes
 -------|--------| ------------------------------------
 human  | human  | mouse, bacteria (top 20), mycoplasma
 mouse  | mouse  | human, bacteria (top 20), mycoplasma
-rat    |  rat   | human, bacteria (top 20), mycoplasma
+rat    | rat    | human, bacteria (top 20), mycoplasma
 
 As shown in Table 3, we align each species to the target genome as well as a list of selected foreign genomes which we reason to be the most likely source of contamination. In all alignments, we keep the `STAR` parameter settings invariant so that the output could be comparable. Afterwards, we employ the script `sam_best_hits.pl` to compare the alignment scores between the target and foreign genomes and generate a list of reads exclusive to each genome. Finally, we take the union of the foreign genome unique reads, thus defining the contaminant read list. Note that, we did observe that there were reads equally well aligned to the host and to the foreign genomes, which were called the "ambiguous reads". 
 
@@ -370,44 +370,43 @@ Besides human or mouse contaminants, we also spotted bacteria and mycoplasma rea
 
 Table 4-1. Top 20 bacteria species selected for contaminant removal
 
-Species	| NCBI filename
---------|-------------------
-Shigella_sp	| Shigella_sp_fc2710.ASM173046v1.dna.toplevel.fa.gz
-Actinopolyspora_erythraea |	Actinopolyspora_erythraea.ASM76309v1.dna.toplevel.fa.gz
+Species                       | NCBI filename
+------------------------------|----------------------------------------------------------------------------------------------------
+Shigella_sp                   | Shigella_sp_fc2710.ASM173046v1.dna.toplevel.fa.gz
+Actinopolyspora_erythraea     |	Actinopolyspora_erythraea.ASM76309v1.dna.toplevel.fa.gz
 Pseudoalteromonas_agarivorans | Pseudoalteromonas_agarivorans_s816.S816-1_1.0.dna.toplevel.fa.gz
-Escherichia_fergusonii | Escherichia_fergusonii_b253.ASM19049v1.dna.toplevel.fa.gz
-Haloferax_larsenii | Haloferax_larsenii_jcm_13917.ASM33695v1.dna.toplevel.fa.gz
-Natrinema_pallidum | Natrinema_pallidum_dsm_3751.ASM33761v1.dna.toplevel.fa.gz
-Bacillus_murimartini | Bacillus_murimartini.ASM127470v1.dna.toplevel.fa.gz
-Burkholderiaceae_bacterium | Burkholderiaceae_bacterium_26.ASM95579v1.dna.toplevel.fa.gz
-Methyloglobulus_morosus | Methyloglobulus_morosus_kom1.MKO1.dna.toplevel.fa.gz
-Escherichia_sp | Escherichia_sp_4_1_40b.Escherichia_sp_4_1_40B_V2.dna.toplevel.fa.gz
-Synthetic_escherichia | Synthetic_escherichia_coli_c321_deltaa.ASM47403v1.dna.toplevel.fa.gz
-Acetobacter_malorum	| Acetobacter_malorum.ASM74388v1.dna.toplevel.fa.gz
-Beggiatoa_sp | Beggiatoa_sp_ps.ASM17071v1.dna.toplevel.fa.gz
-Escherichia_albertii | Escherichia_albertii_tw07627.ASM15510v1.dna.toplevel.fa.gz
-Alcanivorax_hongdengensis | Alcanivorax_hongdengensis_a_11_3.ASM30099v1.dna.toplevel.fa.gz
-Shigella_boydii	| Shigella_boydii_5216_82.ASM21197v2.dna.toplevel.fa.gz
-Natronorubrum_sulfidifaciens | Natronorubrum_sulfidifaciens_jcm_14089.ASM33773v1.dna.toplevel.fa.gz
-enterobacter_aerogenes	| enterobacter_aerogenes_gca_000802765.SPADES_assembly_of_Enterobacter_cloacae_ND17.dna.toplevel.fa.gz
-Escherichia_coli | Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.dna.toplevel.fa.gz
+Escherichia_fergusonii        | Escherichia_fergusonii_b253.ASM19049v1.dna.toplevel.fa.gz
+Haloferax_larsenii            | Haloferax_larsenii_jcm_13917.ASM33695v1.dna.toplevel.fa.gz
+Natrinema_pallidum            | Natrinema_pallidum_dsm_3751.ASM33761v1.dna.toplevel.fa.gz
+Bacillus_murimartini          | Bacillus_murimartini.ASM127470v1.dna.toplevel.fa.gz
+Burkholderiaceae_bacterium    | Burkholderiaceae_bacterium_26.ASM95579v1.dna.toplevel.fa.gz
+Methyloglobulus_morosus       | Methyloglobulus_morosus_kom1.MKO1.dna.toplevel.fa.gz
+Escherichia_sp                | Escherichia_sp_4_1_40b.Escherichia_sp_4_1_40B_V2.dna.toplevel.fa.gz
+Synthetic_escherichia         | Synthetic_escherichia_coli_c321_deltaa.ASM47403v1.dna.toplevel.fa.gz
+Acetobacter_malorum	          | Acetobacter_malorum.ASM74388v1.dna.toplevel.fa.gz
+Beggiatoa_sp                  | Beggiatoa_sp_ps.ASM17071v1.dna.toplevel.fa.gz
+Escherichia_albertii          | Escherichia_albertii_tw07627.ASM15510v1.dna.toplevel.fa.gz
+Alcanivorax_hongdengensis     | Alcanivorax_hongdengensis_a_11_3.ASM30099v1.dna.toplevel.fa.gz
+Shigella_boydii	              | Shigella_boydii_5216_82.ASM21197v2.dna.toplevel.fa.gz
+Natronorubrum_sulfidifaciens  | Natronorubrum_sulfidifaciens_jcm_14089.ASM33773v1.dna.toplevel.fa.gz
+enterobacter_aerogenes	      | enterobacter_aerogenes_gca_000802765.SPADES_assembly_of_Enterobacter_cloacae_ND17.dna.toplevel.fa.gz
+Escherichia_coli              | Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.dna.toplevel.fa.gz
 Methanocaldococcus_jannaschii | Methanocaldococcus_jannaschii_dsm_2661.ASM9166v1.dna.toplevel.fa.gz
 
 
 Table 4-2. Top 4 mycoplasma species selected for contaminant removal
 
-Species	| NCBI accession
---------|----------------------
+Species         	   | NCBI accession
+-----------------------|----------------
 Acholeplasma laidlawii | NC_010163.1
-Mycoplasma fermentans | NC_014921.1
-Mycoplasma hominis | NC_013511.1
-Mycoplasma hyorhinis | NC_019552.1
+Mycoplasma fermentans  | NC_014921.1
+Mycoplasma hominis     | NC_013511.1
+Mycoplasma hyorhinis   | NC_019552.1
 
-The top contaminating bacteria and mycoplasma species were first explored and curated by Dr. Kevin Bullaghey. 
+The top contaminating bacteria and mycoplasma species were first explored and curated by Dr. Kevin Bullaughey. 
 
 ## References
-1. Zhu, Qin, Stephen A. Fisher, Jamie Shallcross, and Junhyong Kim. “VERSE: A Versatile and Efficient RNA-Seq Read Counting Tool.” BioRxiv, May 14, 2016, 053306. https://doi.org/10.1101/053306.
-2. Martin, Marcel. “Cutadapt Removes Adapter Sequences from High-Throughput Sequencing Reads.” EMBnet.Journal 17, no. 1 (February 5, 2011): 10–12.
-3. Amemiya, Haley M., Anshul Kundaje, and Alan P. Boyle. “The ENCODE Blacklist: Identification of Problematic Regions of the Genome.” Scientific Reports 9, no. 1 (June 27, 2019): 1–5. https://doi.org/10.1038/s41598-019-45839-z.
-4. Salter, Susannah J., Michael J. Cox, Elena M. Turek, Szymon T. Calus, William O. Cookson, Miriam F. Moffatt, Paul Turner, Julian Parkhill, Nicholas J. Loman, and Alan W. Walker. “Reagent and Laboratory Contamination Can Critically Impact Sequence-Based Microbiome Analyses.” BMC Biology 12 (November 12, 2014): 87. https://doi.org/10.1186/s12915-014-0087-z.
-
+1. Qin Zhu, Stephen A. Fisher, Jamie Shallcross, and Junhyong Kim. "VERSE: A Versatile and Efficient RNA-Seq Read Counting Tool." ([BioRxiv, May 14, 2016, 053306](https://doi.org/10.1101/053306))
+2. Marcel Martin. "Cutadapt Removes Adapter Sequences from High-Throughput Sequencing Reads." ([EMBnet.Journal 17, no. 1 (February 5, 2011): 10–12](https://journal.embnet.org/index.php/embnetjournal/article/view/200))
+3. Haley M. Amemiya, Anshul Kundaje, and Alan P. Boyle. "The ENCODE Blacklist: Identification of Problematic Regions of the Genome." ([Scientific Reports 9, no. 1 (June 27, 2019): 1–5](https://www.nature.com/articles/s41598-019-45839-z))
+4. Susannah J. Salter, Michael J. Cox, Elena M. Turek, Szymon T. Calus, William O. Cookson, Miriam F. Moffatt, Paul Turner, Julian Parkhill, Nicholas J. Loman, and Alan W. Walker. "Reagent and Laboratory Contamination Can Critically Impact Sequence-Based Microbiome Analyses." ([BMC Biology 12 (November 12, 2014): 87](https://bmcbiol.biomedcentral.com/articles/10.1186/s12915-014-0087-z))

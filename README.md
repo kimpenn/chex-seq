@@ -22,28 +22,28 @@ For complete manual please refer to the [Wiki Page](doc/wiki.md).
 2. This package is designed to work as a `lib` hence doesn't need to be installed to your system or local `bin`. You just need to download and place the source code folder (`src`) to the workplace where you want to run the pipeline. Make sure the folder `data` is the same level as `src`. If you want to use some module as standalone, you may simply source the corresponding file in bash or R environment. 
 
 ## Usage
-1. Prepare the Sequencing Configuration (`data/info/config.csv`), the sample sheet (`data/SampleInfo.csv`);
+1. Prepare the Sequencing Configuration (`data/info/config.csv`), the sample sheet (`data/SampleInfo.csv`)
 2. Generate the sample grouping info in R session
 ```
 source("src/1.groupinfo.R")
 ``` 
-2. Run the pipeline by
+3. Run the pipeline by
 ```
 $ bash src/2.pipeline.bash
 ``` 
-3. Get QC statistics in R session
+4. Get QC statistics in R session
 ```
 source("src/3.qc.R")
 ```
-4. Extract the priming sites of desired quality in R session
+5. Extract the priming sites of desired quality in R session
 ```
 source("src/4.sites.R")
 ```
-5. Generate genomic features and store for count quantification in R session
+6. Generate genomic features and store for count quantification in R session
 ```
 source("src/5.features.R")
 ```
-6. Generate priming count matrices per genomic feature type in R session
+7. Generate priming count matrices per genomic feature type in R session
 ```
 source("src/6.cntmatrix.R")
 ```
@@ -61,4 +61,4 @@ All Rights Reserved.
 
 ## References
 1. Ditte Lovatt, Brittani K Ruble, Jaehee Lee, Hannah Dueck, Tae Kyung Kim, Stephen Fisher, Chantal Francis, Jennifer M Spaethling, John A Wolf, M Sean Grady, Alexandra V Ulyanova, Sean B Yeldell, Julianne C Griepenburg, Peter T Buckley, Junhyong Kim, Jai-Yoon Sul, Ivan J Dmochowski and James Eberwine. "Transcriptome in Vivo Analysis (TIVA) of Spatially Defined Single Cells in Live Tissue." ([Nature Methods 11, no. 2 (February 2014): 190-96](https://doi.org/10.1038/nmeth.2804))
-2. Youtao Lu, Jaehee Lee, Jifen Li, Srini Rao Allu, Jinhui Wang, Hyun-Bum Kim, Kevin L. Bullaughey, Stephen A. Fisher, C. Erik Nordgren, Jean G. Rosario, Stewart A. Anderson, Alexandra V. Ulyanova, Steven Brem, H. Isaac Chen, John A. Wolf, M. Sean Grady, Sergei A. Vinogradov, Junhyong Kim and James Eberwine. "CHEX-seq Detects Single-Cell Single-Strand DNA With Catalytical Capacity." (under review)
+2. Youtao Lu, Jaehee Lee, Jifen Li, Srinivasa Rao Allu, Jinhui Wang, Hyun-Bum Kim, Kevin L. Bullaughey, Stephen A. Fisher, C. Erik Nordgren, Jean G. Rosario, Stewart A. Anderson, Alexandra V. Ulyanova, Steven Brem, H. Isaac Chen, John A. Wolf, M. Sean Grady, Sergei A. Vinogradov, Junhyong Kim and James Eberwine. "CHEX-seq Detects Single-Cell Genomic Single-Strand DNA with Catalytical Potential." ([Nature Communications 14, 7346 (2023)](https://www.nature.com/articles/s41467-023-43158-6))
